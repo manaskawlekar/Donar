@@ -44,7 +44,7 @@ public class NGOlogin extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
               FirebaseUser user = mAuth.getCurrentUser();
               if (user !=null){
-                  Intent intent = new Intent(NGOlogin.this,dashboard.class);
+                  Intent intent = new Intent(NGOlogin.this,dashboardngo.class);
                   startActivity(intent);
                   finish();
               }
@@ -66,7 +66,7 @@ public class NGOlogin extends AppCompatActivity {
             }
         });
 
-        ngoEmail.setOnClickListener(new View.OnClickListener() {
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final String email = ngoEmail.getText().toString().trim();
@@ -89,17 +89,24 @@ public class NGOlogin extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                          if(task.isSuccessful()){
                              Toast.makeText(NGOlogin.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                             Intent intent = new Intent(NGOlogin.this,dashboard.class);
+                             Intent intent = new Intent(NGOlogin.this,dashboardngo.class);
                              startActivity(intent);
                              finish();
                          }else{
-                             Toast.makeText(NGOlogin.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
+                             Toast.makeText(NGOlogin.this, "Please Enter Valid credentials", Toast.LENGTH_LONG).show();
                          }
                          loader.dismiss();
                         }
                     });
                 }
 
+            }
+        });
+
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(NGOlogin.this, ForgetPassword.class));
             }
         });
     }

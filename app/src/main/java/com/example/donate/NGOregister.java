@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +26,7 @@ public class NGOregister extends AppCompatActivity {
 
     private TextView alreadyHaveaccount;
 
-    private TextView fullName,phone,emailid,ngoregister,inputPassword,inputConfirmPassword;
+    private EditText fullName,phone,emailid,ngoregister,inputPassword,inputConfirmPassword;
 
 
     private Button btnRegister;
@@ -58,17 +59,17 @@ public class NGOregister extends AppCompatActivity {
         btnRegister = findViewById(R.id.btnRegister);
         loader = new ProgressDialog(this);
 
-        mAuth = FirebaseAuth.getInstance();
-
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View View) {
-                final String email = emailid.getText().toString().trim();
-                final String password = inputPassword.getText().toString().trim();
-                final String confirmpassword = inputConfirmPassword.getText().toString().trim();
-                final String fullname = fullName.getText().toString().trim();
-                final String contact = phone.getText().toString().trim();
-                final String ngoreg = ngoregister.getText().toString().trim();
+                mAuth = FirebaseAuth.getInstance();
+                 String email = emailid.getText().toString().trim();
+                 String password = inputPassword.getText().toString().trim();
+                 String confirmpassword = inputConfirmPassword.getText().toString().trim();
+                 String fullname = fullName.getText().toString().trim();
+                 String contact = phone.getText().toString().trim();
+                 String ngoreg = ngoregister.getText().toString().trim();
+                 String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
                 if(email.isEmpty()){
                     emailid.setError("Email is required!!");
@@ -100,6 +101,19 @@ public class NGOregister extends AppCompatActivity {
                     return;
                 }
 
+                if(!password.equals(confirmpassword)){
+                    inputConfirmPassword.setError("Passwords do not match");
+                    return;
+                }
+                if (!email.matches(emailPattern)) {
+                    emailid.setError("Invalid email address");
+                    return;
+                }
+                if (contact.length() != 10) {
+                    phone.setError("Enter a valid 10-digit phone number");
+                    return;
+                }
+
                 else{
                     loader.setMessage("Registering You!!");
                     loader.setCanceledOnTouchOutside(false);
@@ -114,22 +128,22 @@ public class NGOregister extends AppCompatActivity {
                             }
                             else {
                                 String CurrentUserId = mAuth.getCurrentUser().getUid();
-                                userDatabaseRef = FirebaseDatabase.getInstance().getReference()
-                                        .child("users").child(CurrentUserId);
-                                HashMap userInfo = new HashMap();
-                                userInfo.put("id",CurrentUserId);
-                                userInfo.put("fullname",fullname);
-                                userInfo.put("email",email);
-                                userInfo.put("password",password);
-                                userInfo.put("confirmpassword",confirmpassword);
-                                userInfo.put("contact",phone);
-                                userInfo.put("ngoregist",ngoregister);
-                                userInfo.put("type","NGO");
+                                userDatabaseRef = FirebaseDatabase.getInstance().getReference().child("Org").child(CurrentUserId);
+                                HashMap<String, Object> userMap = new HashMap<>();
+                                userMap.put("name", fullname);
+                                userMap.put("phone", contact);
+                                userMap.put("email", email);
+                                userMap.put("NGOcode", ngoreg);
+                                userMap.put("id",CurrentUserId);
+                                userMap.put("password",password);
+                                userMap.put("confirmpassword",confirmpassword);
+                                userMap.put("type","NGO");
 
-                                userDatabaseRef.updateChildren(userInfo).addOnCompleteListener(new OnCompleteListener() {
+                                userDatabaseRef.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
                                     @Override
                                     public void onComplete(@NonNull Task task) {
                                         if(!task.isSuccessful()){
+                                            loader.dismiss();
                                             Toast.makeText(NGOregister.this, "Data set Successfully", Toast.LENGTH_SHORT).show();
                                         }else{
                                             Toast.makeText(NGOregister.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
@@ -138,10 +152,6 @@ public class NGOregister extends AppCompatActivity {
                                         //loader.dismiss();
                                     }
                                 });
-                                Intent intent = new Intent(NGOregister.this, dashboard.class);
-                                startActivity(intent);
-                                finish();
-                                loader.dismiss();
                             }
 
                         }

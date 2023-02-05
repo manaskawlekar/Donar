@@ -158,11 +158,12 @@
                 app:layout_constraintTop_toTopOf="@+id/textView4"
                 app:layout_constraintVertical_bias="0.411" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/btnFacebook"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="80dp"
+                android:layout_height="60dp"
                 android:layout_marginEnd="16dp"
+                android:scaleType="fitCenter"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/btnGmail"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -171,11 +172,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView4"
                 app:srcCompat="@drawable/facebook_logo" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/btnGmail"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="80dp"
+                android:layout_height="60dp"
                 android:layout_marginStart="16dp"
+                android:scaleType="fitCenter"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"

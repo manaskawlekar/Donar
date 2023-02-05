@@ -5,9 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/dash"
-    android:background="@drawable/blackbg"
+    android:background="@drawable/header_background"
     android:fitsSystemWindows="true"
-    tools:context=".dashboard">
+    tools:context=".dashboard"
+    tools:openDrawer="start">
 
        <LinearLayout
         android:layout_width="match_parent"
@@ -19,25 +20,30 @@
             android:elevation="4dp"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
+            app:title="Donate For Needy"
+            app:titleTextColor="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#Be5025"/>
+            android:layout_marginStart="5dp"
+            android:background="#725995"/>
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
+           <androidx.appcompat.widget.SearchView
+               android:id="@+id/searchview"
+               android:layout_width="398dp"
+               android:layout_height="wrap_content"
+               android:background="@drawable/search_view_bg"
+               android:layout_margin="8dp"
+               app:queryHint="Search NGO...."
+               app:iconifiedByDefault="false"/>
+
+           <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <ProgressBar
-                android:id="@+id/progressbar"
-                android:layout_gravity="center_vertical|center_horizontal"
-                android:layout_width="wrap_content"
-               android:layout_height="wrap_content"/>
 
            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerview"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-
+                android:layout_height="match_parent" />
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     </LinearLayout>
@@ -50,6 +56,7 @@
         app:itemIconTint="@drawable/navigation_selector"
         app:itemTextColor="@drawable/navigation_view_item_selected"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:background="#7393B3"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>

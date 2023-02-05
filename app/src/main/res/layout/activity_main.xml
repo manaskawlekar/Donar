@@ -44,13 +44,13 @@
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.844"
+            app:layout_constraintVertical_bias="0.833"
             app:srcCompat="@drawable/nog" />
 
         <TextView
             android:id="@+id/displayname"
-            android:layout_width="337dp"
-            android:layout_height="83dp"
+            android:layout_width="333dp"
+            android:layout_height="71dp"
             android:text="Donate For Needy"
             android:textColor="@color/white"
             android:textSize="40dp"
@@ -60,6 +60,32 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.082" />
+
+        <TextView
+            android:id="@+id/donor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Donor"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="28dp"
+            app:layout_constraintBottom_toTopOf="@+id/user"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/displayname" />
+
+        <TextView
+            android:id="@+id/ngobtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="NGO"
+            android:textColor="@color/white"
+            android:textSize="28dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ngo" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

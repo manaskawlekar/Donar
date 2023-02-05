@@ -3,4 +3,34 @@
 
     <string name="navigation_drawer_open">Open Navigation drawer</string>
     <string name="navigation_drawer_close">Close Navigation drawer</string>
+
+    //For Facebook Login
+    <string name="facebook_app_id">1234</string>
+    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="facebook_client_token">56789</string>
+
+
+    //For Food Donation and its type:
+    <string-array name="food_types">
+        <item>Select One</item>
+        <item>Fresh Produce</item>
+        <item>Meat and Poultry</item>
+        <item>Dairy Products</item>
+        <item>Grains and Cereals</item>
+        <item>Baked Goods</item>
+        <item>Canned and Packaged Goods</item>
+        <item>Snacks and Non-Perishable Items</item>
+    </string-array>
+
+    //For Cloth Donation and its types:
+    <string-array name="cloth_types">
+        <item>Select One</item>
+        <item>Shirts</item>
+        <item>T-Shirts</item>
+        <item>Pants</item>
+        <item>Jackets</item>
+        <item>Sweaters</item>
+        <item>Both Pant and Shirts</item>
+        <item>Mix All types of cloth</item>
+    </string-array>
 </resources>

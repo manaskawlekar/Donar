@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/home"
-        android:icon="@drawable/myfeed"
-        android:title="Home"/>
+        android:icon="@drawable/home_icon"
+        android:title="Home"
+        app:showAsAction="never"/>
 
     <item
         android:id="@+id/sentEmail"
-        android:icon="@drawable/myfeed"
-        android:title="Donors Emails"/>
-
+        android:icon="@drawable/email"
+        android:title="NGO Emails"/>
 
     <item
-        android:id="@+id/compatible"
-        android:icon="@drawable/myfeed"
-        android:title="Home"/>
+        android:id="@+id/transhistory"
+        android:icon="@drawable/history"
+        android:title="Transaction History"/>
 
-    <item android:title="Items">
+
+
+    <item android:title="Accounts and More">
         <menu>
             <group android:checkableBehavior="single">
                 <item
@@ -26,6 +29,7 @@
 
                 <item
                     android:id="@+id/notification"
+                    android:icon="@drawable/notifications"
                     android:title="Notifications"/>
 
                 <item
@@ -36,7 +40,7 @@
         </menu>
     </item>
 
-    <item android:title="Communicate">
+    <item android:title="Know More">
         <menu>
             <group android:checkableBehavior="single">
                 <item
@@ -46,7 +50,7 @@
 
                 <item
                     android:id="@+id/share"
-                    android:icon="@drawable/img"
+                    android:icon="@drawable/share"
                     android:title="Share"/>
 
             </group>

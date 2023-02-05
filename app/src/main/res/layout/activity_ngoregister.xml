@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/blackbg"
+    android:background="#3F51B5"
     tools:context=".NGOregister">
 
     <View
@@ -27,7 +27,7 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="36dp"
+                android:layout_marginTop="28dp"
                 android:fontFamily="@font/aldrich"
                 android:text="Register"
                 android:textColor="@color/white"
@@ -41,7 +41,7 @@
                 android:id="@+id/emailid"
                 android:layout_width="0dp"
                 android:layout_height="45dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/input_bg"
                 android:drawableLeft="@drawable/ic_baseline_email_24"
                 android:drawablePadding="8dp"
@@ -54,15 +54,16 @@
                 android:paddingBottom="13dp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
-                app:layout_constraintEnd_toEndOf="@+id/fullName"
-                app:layout_constraintStart_toStartOf="@+id/fullName"
+                app:layout_constraintEnd_toEndOf="@+id/phone"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/phone"
                 app:layout_constraintTop_toBottomOf="@+id/phone" />
 
             <EditText
                 android:id="@+id/ngoPassword"
                 android:layout_width="0dp"
                 android:layout_height="45dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/input_bg"
                 android:drawableLeft="@drawable/ic_baseline_password_24"
                 android:drawablePadding="9dp"
@@ -75,15 +76,16 @@
                 android:paddingBottom="13dp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
-                app:layout_constraintEnd_toEndOf="@+id/fullName"
-                app:layout_constraintStart_toStartOf="@+id/fullName"
+                app:layout_constraintEnd_toEndOf="@+id/ngoreg"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/ngoreg"
                 app:layout_constraintTop_toBottomOf="@+id/ngoreg" />
 
             <EditText
                 android:id="@+id/inputConfirmPassword"
                 android:layout_width="0dp"
                 android:layout_height="45dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/input_bg"
                 android:drawableLeft="@drawable/ic_baseline_password_24"
                 android:drawablePadding="9dp"
@@ -96,17 +98,16 @@
                 android:paddingBottom="13dp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
-                app:layout_constraintEnd_toEndOf="@+id/fullName"
-                app:layout_constraintStart_toStartOf="@+id/fullName"
+                app:layout_constraintEnd_toEndOf="@+id/ngoPassword"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/ngoPassword"
                 app:layout_constraintTop_toBottomOf="@+id/ngoPassword" />
 
             <Button
                 android:id="@+id/btnRegister"
                 android:layout_width="0dp"
                 android:layout_height="45dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/input_bg"
                 android:text="Register"
                 android:textColor="@color/white"
@@ -116,15 +117,13 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/inputConfirmPassword"
                 app:layout_constraintTop_toBottomOf="@+id/inputConfirmPassword"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintVertical_bias="0.051" />
 
             <TextView
                 android:id="@+id/alreadyHaveaccount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:layout_marginTop="24dp"
-                android:layout_marginEnd="8dp"
                 android:text="Already Have An Account?"
                 android:textColor="@color/white"
                 android:textSize="20sp"
@@ -137,32 +136,33 @@
             <EditText
                 android:id="@+id/fullName"
                 android:layout_width="0dp"
-                android:layout_height="45dp"
-                android:layout_marginStart="16dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="24dp"
                 android:background="@drawable/input_bg"
                 android:drawableLeft="@color/white"
                 android:drawablePadding="8dp"
                 android:ems="10"
+                android:hint="Full Name"
                 android:inputType="text"
                 android:paddingLeft="20dp"
                 android:paddingTop="13dp"
                 android:paddingRight="20dp"
                 android:paddingBottom="13dp"
-                android:hint="Full Name"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:textSize="18dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
 
             <EditText
                 android:id="@+id/phone"
                 android:layout_width="0dp"
-                android:layout_height="45dp"
-                android:layout_marginTop="24dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/input_bg"
                 android:ems="10"
                 android:hint="Mobile no. / Phone No."
@@ -181,8 +181,8 @@
             <EditText
                 android:id="@+id/ngoreg"
                 android:layout_width="0dp"
-                android:layout_height="45dp"
-                android:layout_marginTop="24dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/input_bg"
                 android:ems="10"
                 android:hint="NGO Registered No. "
@@ -194,8 +194,9 @@
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:textSize="18dp"
-                app:layout_constraintEnd_toEndOf="@+id/fullName"
-                app:layout_constraintStart_toStartOf="@+id/fullName"
+                app:layout_constraintEnd_toEndOf="@+id/emailid"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/emailid"
                 app:layout_constraintTop_toBottomOf="@+id/emailid" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

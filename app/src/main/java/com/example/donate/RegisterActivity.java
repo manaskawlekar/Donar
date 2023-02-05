@@ -7,6 +7,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.PasswordTransformationMethod;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,6 +30,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EditText fullName,phone,emailid,inputPassword,inputConfirmPassword;
 
+    Boolean passwordVisible;
+
     private Button btnRegister;
 
     ProgressDialog loader;
@@ -39,7 +43,8 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-       alreadyHaveaccount=findViewById(R.id.alreadyHaveaccount);
+        alreadyHaveaccount=findViewById(R.id.alreadyHaveaccount);
+        loader = new ProgressDialog(this);
 
 
         alreadyHaveaccount.setOnClickListener(new View.OnClickListener() {
@@ -56,89 +61,100 @@ public class RegisterActivity extends AppCompatActivity {
         inputConfirmPassword = findViewById(R.id.inputConfirmPassword);
         btnRegister = findViewById(R.id.btnRegister);
         loader = new ProgressDialog(this);
-
-        mAuth = FirebaseAuth.getInstance();
-
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View View) {
 
-             String email = emailid.getText().toString().trim();
-             String password = inputPassword.getText().toString().trim();
-             String confirmpassword = inputConfirmPassword.getText().toString().trim();
-             String fullname = fullName.getText().toString().trim();
-             String contact = phone.getText().toString().trim();
+                mAuth = FirebaseAuth.getInstance();
 
-            if(email.isEmpty()){
-                emailid.setError("Email is required!!");
-                return;
-            }
+                String email = emailid.getText().toString().trim();
+                String password = inputPassword.getText().toString().trim();
+                String confirmpassword = inputConfirmPassword.getText().toString().trim();
+                String fullname = fullName.getText().toString().trim();
+                String contact = phone.getText().toString().trim();
+                String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
-            if(password.isEmpty()){
-                inputPassword.setError("Password is required!!");
-                return;
-            }
+                if(email.isEmpty()){
+                    emailid.setError("Email is required!!");
+                    return;
+                }
 
-            if(confirmpassword.isEmpty()){
-                inputConfirmPassword.setError("Re-Enter password is required!!");
-                return;
-            }
+                if(password.isEmpty()){
+                    inputPassword.setError("Password is required!!");
+                    return;
+                }
 
-            if(fullname.isEmpty()){
-                fullName.setError("Full name is required!!");
-                return;
-            }
+                if(confirmpassword.isEmpty()){
+                    inputConfirmPassword.setError("Re-Enter password is required!!");
+                    return;
+                }
 
-            if(contact.isEmpty()){
-                phone.setError("Mobile no./ Contact no. is required!!");
-                return;
-            }
+                if(fullname.isEmpty()){
+                    fullName.setError("Full name is required!!");
+                    return;
+                }
 
-            else{
-                loader.setMessage("Registering You!!");
-                loader.setCanceledOnTouchOutside(false);
-                loader.show();
-                mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
+                if(contact.isEmpty()){
+                    phone.setError("Mobile no./ Contact no. is required!!");
+                    return;
+                }
 
-                        if(task.isSuccessful()){
-                            String error = task.getException().toString();
-                            Toast.makeText(RegisterActivity.this, "Error" + error, Toast.LENGTH_SHORT).show();
-                        }
-                        else {
-                            String CurrentUserId = mAuth.getCurrentUser().getUid();
-                            userDatabaseRef = FirebaseDatabase.getInstance().getReference().child("users").child(CurrentUserId);
-                            HashMap userInfo = new HashMap();
-                            userInfo.put("id",CurrentUserId);
-                            userInfo.put("fullname",fullname);
-                            userInfo.put("email",email);
-                            userInfo.put("password",password);
-                            userInfo.put("confirmpassword",confirmpassword);
-                            userInfo.put("contact",phone);
-                            userInfo.put("type","Customer");
+                if(!password.equals(confirmpassword)){
+                    inputConfirmPassword.setError("Passwords do not match");
+                    return;
+                }
 
-                            userDatabaseRef.updateChildren(userInfo).addOnCompleteListener(new OnCompleteListener() {
-                                @Override
-                                public void onComplete(@NonNull Task task) {
-                                    if(!task.isSuccessful()){
-                                        Toast.makeText(RegisterActivity.this, "Data set Successfully", Toast.LENGTH_SHORT).show();
-                                    }else{
-                                        Toast.makeText(RegisterActivity.this, task.getException().toString(), Toast.LENGTH_SHORT).show();
+                if (!email.matches(emailPattern)) {
+                    emailid.setError("Invalid email address");
+                    return;
+                }
+                if (contact.length() != 10) {
+                    phone.setError("Enter a valid 10-digit phone number");
+                    return;
+                }
+                else{
+                    loader.setMessage("Registering You!!");
+                    loader.setCanceledOnTouchOutside(false);
+                    loader.show();
+                    mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+
+                            if(task.isSuccessful()){
+                                String currentUserID = mAuth.getCurrentUser().getUid();
+                                userDatabaseRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID);
+                                HashMap<String, String> userMap = new HashMap<>();
+                                userMap.put("fullname", fullname);
+                                userMap.put("phone", contact);
+                                userMap.put("email", email);
+                                userMap.put("password", password);
+                                userMap.put("type","Donor");
+
+                                userDatabaseRef.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if(task.isSuccessful()){
+                                            loader.dismiss();
+                                            Toast.makeText(RegisterActivity.this, "Account Created Successfully", Toast.LENGTH_SHORT).show();
+                                            startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                                            finish();
+                                        }
+                                        else{
+                                            loader.dismiss();
+                                            String message = task.getException().toString();
+                                            Toast.makeText(RegisterActivity.this, "Error : " + message, Toast.LENGTH_SHORT).show();
+                                        }
                                     }
-                                    finish();
-                                    //loader.dismiss();
-                                }
-                            });
-                            Intent intent = new Intent(RegisterActivity.this, dashboard.class);
-                            startActivity(intent);
-                            finish();
-                            loader.dismiss();
+                                });
+                            }
+                            else{
+                                loader.dismiss();
+                                String message = task.getException().toString();
+                                Toast.makeText(RegisterActivity.this, "Error : " + message, Toast.LENGTH_SHORT).show();
+                            }
                         }
-
-                    }
-                });
-            }
+                    });
+                }
             }
         });
     }
